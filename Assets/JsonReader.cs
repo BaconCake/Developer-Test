@@ -10,10 +10,8 @@ public class JsonReader {
 		switch(asset.type){
 		case "audio":
 			return JsonUtility.FromJson<AudioAsset>(jSONString);
-			break;
 		case "character":
-			return asset;
-			break;
+			return JsonUtility.FromJson<CharacterAsset>(jSONString);
 			default:
 			return asset;
 		}
