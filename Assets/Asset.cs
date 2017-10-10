@@ -17,7 +17,7 @@ public class Asset
             _www = new WWW(url);
             yield return _www;
 
-            if (_www.error == null)
+			if (string.IsNullOrEmpty(_www.error))
             {
                 yield return new WaitForEndOfFrame();
 
@@ -88,11 +88,11 @@ public class AudioAsset : Asset
             _www = new WWW(url);
             yield return _www;
 
-            if (_www.error == null)
+			if (string.IsNullOrEmpty(_www.error))
             {
                 yield return new WaitForEndOfFrame();
 
-                if (_www.audioClip != null)
+                if (_www.GetAudioClip() != null)
                 {
                     var request = _www.GetAudioClip(true);
 
