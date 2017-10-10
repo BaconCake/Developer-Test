@@ -2,9 +2,10 @@
 using System;
 using System.Collections;
 using System.Linq;
+using AssemblyCSharp;
 
 [Serializable]
-public class Asset
+public class Asset : IAsset
 {
     public string Name;
     public string url;
