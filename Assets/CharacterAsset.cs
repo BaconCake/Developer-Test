@@ -7,36 +7,34 @@ public class CharacterAsset : Asset
 {
 	private UnityEngine.Object assetObj;
 
-	public override IEnumerator Load()
+	public override IEnumerator Load ()
 	{
-		Debug.Log("Character Asset Load");
-		if (www == null)
-		{
-			www = new WWW(url);
+		Debug.Log ("Character Asset Load");
+		if (www == null) {
+			www = new WWW (url);
 			yield return www;
 
-			if (string.IsNullOrEmpty(www.error))
-			{
-				var request = www.assetBundle.LoadAllAssetsAsync();
+			if (string.IsNullOrEmpty (www.error)) {
+				var request = www.assetBundle.LoadAllAssetsAsync ();
 				yield return request;
 
-				assetObj = request.allAssets[0];
+				assetObj = request.allAssets [0];
 
-				Add();
+				Add ();
 			}
 		}
 	}
 
-	public override void Add()
+	public override void Add ()
 	{
-		base.Add();
-		Debug.Log("Character loaded");
+		base.Add ();
+		Debug.Log ("Character loaded");
 	}
 
-	public override void Instantiate()
+	public override void Instantiate ()
 	{
 		GameObject instantiatedAsset = null;
-		instantiatedAsset = GameObject.Instantiate(assetObj, Vector3.zero, Quaternion.identity) as GameObject;
-		GameManager.InstantiatedAssets.Add(instantiatedAsset);
+		instantiatedAsset = GameObject.Instantiate (assetObj, Vector3.zero, Quaternion.identity) as GameObject;
+		GameManager.InstantiatedAssets.Add (instantiatedAsset);
 	}
 }

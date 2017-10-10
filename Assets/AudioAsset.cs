@@ -8,43 +8,33 @@ public class AudioAsset : Asset
 {
 	public AudioClip AudioClip;
 
-	public AudioClip AudioClipProperty
-	{
+	public AudioClip AudioClipProperty {
 		get { return AudioClip; }
-		set
-		{
-			if (AudioClip == null)
-			{
+		set {
+			if (AudioClip == null) {
 				AudioClip = value;
-				GameManager.assets.Add(this);
-			}
-			else
-			{
-				for (int i = 0; i < GameManager.assets.Count(); ++i)
-				{
-					if (GameManager.assets[i] == this)
-					{
-						Debug.LogWarning("There is already an audio asset in audioasset like this: " + AudioClip);
+				GameManager.assets.Add (this);
+			} else {
+				for (int i = 0; i < GameManager.assets.Count (); ++i) {
+					if (GameManager.assets [i] == this) {
+						Debug.LogWarning ("There is already an audio asset in audioasset like this: " + AudioClip);
 					}
 				}
 			}
 		}
 	}
 
-	public override IEnumerator Load()
+	public override IEnumerator Load ()
 	{
-		if (www == null)
-		{
-			www = new WWW(url);
+		if (www == null) {
+			www = new WWW (url);
 			yield return www;
 
-			if (string.IsNullOrEmpty(www.error))
-			{
-				yield return new WaitForEndOfFrame();
+			if (string.IsNullOrEmpty (www.error)) {
+				yield return new WaitForEndOfFrame ();
 
-				if (www.GetAudioClip() != null)
-				{
-					var request = www.GetAudioClip(true);
+				if (www.GetAudioClip () != null) {
+					var request = www.GetAudioClip (true);
 
 					yield return request;
 
@@ -52,24 +42,23 @@ public class AudioAsset : Asset
 				}
 			}
 
-			Add();
+			Add ();
 		}
 	}
 
-	public override void Add()
+	public override void Add ()
 	{
-		base.Add();
-
-		Debug.Log("Audio loaded");
+		base.Add ();
+		Debug.Log ("Audio loaded");
 	}
 
-	public override void Instantiate()
+	public override void Instantiate ()
 	{
-		new GameObject("Audio", typeof(AudioSource));
-		AudioSource audiosource = GameObject.Find("Audio").GetComponent("AudioSource") as AudioSource;
+		new GameObject ("Audio", typeof(AudioSource));
+		AudioSource audiosource = GameObject.Find ("Audio").GetComponent ("AudioSource") as AudioSource;
 
 		audiosource.clip = AudioClip;
-		audiosource.Play();
-		Debug.Log("For audio assets there is nothing to instantiate!");
+		audiosource.Play ();
+		Debug.Log ("For audio assets there is nothing to instantiate!");
 	}
 }

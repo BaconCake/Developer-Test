@@ -5,11 +5,11 @@ namespace AssemblyCSharp
 {
 	public interface IAsset
 	{
-		IEnumerator Load();
+		IEnumerator Load ();
 
-		void Add();
+		void Add ();
 
-		void Instantiate();
+		void Instantiate ();
 	}
 }
 

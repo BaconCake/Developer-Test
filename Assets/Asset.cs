@@ -7,9 +7,9 @@ using AssemblyCSharp;
 [Serializable]
 public class Asset : IAsset
 {
-    public string Name;
-    public string url;
-    public string type;
+	public string Name;
+	public string url;
+	public string type;
 	public WWW www;
 
 	public virtual IEnumerator Load ()
@@ -19,7 +19,7 @@ public class Asset : IAsset
 
 	public virtual void Add ()
 	{
-		GameManager.assets.Add(this);
+		GameManager.assets.Add (this);
 	}
 
 	public virtual void Instantiate ()
