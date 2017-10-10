@@ -5,8 +5,6 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
-    static private GameManager Instance;
-
     public List<TextAsset> _jsonTexts;
 	private JsonReader jsonReader;
 
@@ -22,7 +20,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 		jsonReader = new JsonReader();
-        Instance = this;
         assets = new List<Asset>();
         InstantiatedAssets = new List<GameObject>();
     }
@@ -34,17 +31,6 @@ public class GameManager : MonoBehaviour
 			var asset = jsonReader.ReadFromJson(text.text);
 
             StartCoroutine(asset.Load());
-        }
-
-        AssetCount = 0;
-    }
-
-    public int AssetCount
-    {
-        set
-        {
-            if (assets.Count > value)
-                assets.RemoveRange(value, assets.Count - value);
         }
     }
 
@@ -58,9 +44,6 @@ public class GameManager : MonoBehaviour
             }
 
             _isSceneSetup = true;
-
-            //reset
-            GameManager.Instance.AssetCount = 0;
         }
     }
 
