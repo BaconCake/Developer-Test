@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     static private GameManager Instance;
 
     public List<TextAsset> _jsonTexts;
+	private JsonReader jsonReader;
 
     static public List<Asset> assets;
     static public List<GameObject> InstantiatedAssets;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     private void Awake()
     {
+		jsonReader = new JsonReader();
         Instance = this;
         assets = new List<Asset>();
         InstantiatedAssets = new List<GameObject>();
@@ -29,10 +31,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var text in _jsonTexts)
         {
-            var asset = ReadFromJson(text.text);
-
-            if (asset.type.Equals("audio"))
-                asset = ReadAudioAssetFromJson(text.text);
+			var asset = jsonReader.ReadFromJson(text.text);
 
             StartCoroutine(asset.Load());
         }
@@ -63,16 +62,6 @@ public class GameManager : MonoBehaviour
             //reset
             GameManager.Instance.AssetCount = 0;
         }
-    }
-
-    static public Asset ReadFromJson(string JSONString)
-    {
-        return JsonUtility.FromJson<Asset>(JSONString);
-    }
-
-    private static AudioAsset ReadAudioAssetFromJson(string JSONString)
-    {
-        return JsonUtility.FromJson<AudioAsset>(JSONString);
     }
 
     public void Update()
