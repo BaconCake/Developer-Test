@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
 using AssemblyCSharp;
 
 [Serializable]
@@ -12,6 +13,8 @@ public class Asset : IAsset
 	public string type;
 	public WWW www;
 
+	#region IAsset implementation
+
 	public virtual IEnumerator Load ()
 	{
 		yield return null;
@@ -19,12 +22,14 @@ public class Asset : IAsset
 
 	public virtual void Add ()
 	{
-		GameManager.assets.Add (this);
 	}
 
 	public virtual void Instantiate ()
 	{
-
 	}
+
+	#endregion
 }
+
+
 

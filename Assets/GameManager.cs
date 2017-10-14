@@ -8,15 +8,15 @@ public class GameManager : MonoBehaviour
 	public static List<Asset> assets;
 	public static List<GameObject> InstantiatedAssets;
 	public static Asset ActiveLoadingAsset;
+
 	public static AsyncOperation CurrentInstantiatingAssetOperation { get; internal set; }
+
 	private static bool isSceneSetup;
 
 	public List<TextAsset> jsonTexts;
 	private JsonReader jsonReader;
 
-
-
-	// Use this for initialization
+	//Variable initialization
 	private void Awake ()
 	{
 		jsonReader = new JsonReader ();
@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
 	{
 		foreach (var text in jsonTexts) {
 			var asset = jsonReader.ReadFromJson (text.text);
-
 			StartCoroutine (asset.Load ());
 		}
 	}
@@ -49,9 +48,10 @@ public class GameManager : MonoBehaviour
 		SetupScene ();
 	}
 
+	//Calls instantiate on all loaded assets when all assets are added
 	private static void SetupScene ()
 	{
-		if (assets.Count == ((GameManager)GameObject.Find ("GameManager").GetComponent ("GameManager")).jsonTexts.Count && isSceneSetup == false) {
+		if (assets.Count == jsonTexts.Count && isSceneSetup == false) {
 			foreach (var asset in assets) {
 				asset.Instantiate ();
 			}

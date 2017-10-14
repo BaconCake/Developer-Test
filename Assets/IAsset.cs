@@ -12,4 +12,3 @@ namespace AssemblyCSharp
 		void Instantiate ();
 	}
 }
-

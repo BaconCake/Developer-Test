@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using AssemblyCSharp;
 
 
 [System.Serializable]
-public class AudioAsset : Asset
+public class AudioAsset : Asset, IAsset
 {
 	public AudioClip AudioClip;
 
@@ -24,6 +25,7 @@ public class AudioAsset : Asset
 		}
 	}
 
+	//Connects to url and loads the Audio Asset
 	public override IEnumerator Load ()
 	{
 		if (www == null) {
@@ -39,19 +41,22 @@ public class AudioAsset : Asset
 					yield return request;
 
 					AudioClip = request;
+					Add ();
 				}
 			}
 
-			Add ();
+
 		}
 	}
 
+	//Adds this Audio Asset to the asset-List of the GameManager
 	public override void Add ()
 	{
-		base.Add ();
+		GameManager.assets.Add (this);
 		Debug.Log ("Audio loaded");
 	}
 
+	//Generates a new GameObject with this Audio Asset as Source
 	public override void Instantiate ()
 	{
 		new GameObject ("Audio", typeof(AudioSource));

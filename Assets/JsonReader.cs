@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AssemblyCSharp;
 
 public class JsonReader
 {
-
-	public Asset ReadFromJson (string jSONString)
+	//Returns a matching asset file depending on type in given string
+	public Asset ReadFromJson (string jsonString)
 	{
-		Asset asset = JsonUtility.FromJson<Asset> (jSONString);
+		Asset asset = JsonUtility.FromJson<Asset> (jsonString);
 		switch (asset.type) {
 		case "audio":
-			return JsonUtility.FromJson<AudioAsset> (jSONString);
+			asset = JsonUtility.FromJson<AudioAsset> (jsonString);
+			return asset;
 		case "character":
-			return JsonUtility.FromJson<CharacterAsset> (jSONString);
+			asset = JsonUtility.FromJson<CharacterAsset> (jsonString);
+			return asset;
 		default:
 			return asset;
 		}
