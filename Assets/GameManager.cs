@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	//Calls instantiate on all loaded assets when all assets are added
-	private static void SetupScene ()
+	private void SetupScene ()
 	{
 		if (assets.Count == jsonTexts.Count && isSceneSetup == false) {
 			foreach (var asset in assets) {
